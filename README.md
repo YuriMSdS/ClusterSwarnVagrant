@@ -12,4 +12,4 @@ Este repo é um desafio de projeto parte do bootcamp, o desafio proposto foi o s
 
      5- As demais máquinas deverão ser incluídas no cluster Swarm como Workers. 
 
-Neste caso está tudo configurado em Ruby e com o swarn token figurativo, não é de fato um token válido (por motivos de privacidade e segurança).
+Neste caso está tudo configurado em Ruby (padrão do vagrant) e com o swarn token figurativo, não é de fato um token válido (por motivos de privacidade e segurança).
