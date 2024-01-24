@@ -21,3 +21,25 @@ Vagrant.configure("2") do |config|
             echo "#{swarn_token}" > /vagrant/swarn-token
             SHELL
         end
+        
+        ["node01", "node02", "node03"].each do |node_name|
+            config.vm.define node_name do |node|
+                node.vm.box = "ubutu/bionic64"
+                node.vm.network "private_network", type: "dhcp"
+                node.vm.hostname = node_name
+                node.vm.provider "virtualbox" do |v|
+                    v.memory = 1024
+                    v.cpus = 1
+                end
+                node.vm.provision "shell", inline: <<-SHELL
+                    sudo apt-get update
+                    sudo apt-get install -y docker.io
+
+                    swarn_token=$(cat /vagrant/swarn-token)
+
+                    sudo docker swarn join --token $swarn_token master:2377
+                SHELL
+            end
+        end
+        
+end
