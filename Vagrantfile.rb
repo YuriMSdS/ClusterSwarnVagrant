@@ -12,3 +12,12 @@ Vagrant.configure("2") do |config|
             v.memory = 1024
             v.cpus = 1
         end
+        master.vm.provision "shell", inline: <<-SHELL
+            sudo apt-get update
+            sudo apt-get install -y docker.io
+
+            sudo docker swarn init --advertise--addr eth1
+
+            echo "#{swarn_token}" > /vagrant/swarn-token
+            SHELL
+        end
