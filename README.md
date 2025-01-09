@@ -1,4 +1,4 @@
-# ClusterSwarnVagrant
+# ClusterSwarmVagrant
 
 Este repo é um desafio de projeto parte do bootcamp, o desafio proposto foi o seguinte:
 
