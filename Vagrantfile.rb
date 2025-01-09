@@ -11,7 +11,9 @@ Vagrant.configure("2") do |config|
         end
         master.vm.provision "shell", inline: <<-SHELL
             sudo apt-get update
-            sudo apt-get install -y docker.io
+            if ! command -v docker; then
+                sudo apt-get install -y docker.io
+            fi
             swarm_output=$(sudo docker swarm init --advertise-addr eth1)
             swarm_token=$(echo "$swarm_output" | grep "SWMTKN" | awk '{print $5}')
             echo "$swarm_token" > /vagrant/swarm-token
@@ -29,7 +31,9 @@ Vagrant.configure("2") do |config|
             end
             node.vm.provision "shell", inline: <<-SHELL
                 sudo apt-get update
-                sudo apt-get install -y docker.io
+                if ! command -v docker; then
+                    sudo apt-get install -y docker.io
+                fi
                 swarm_token=$(cat /vagrant/swarm-token)
                 sudo docker swarm join --token $swarm_token 192.168.33.10:2377
             SHELL
